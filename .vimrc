@@ -136,7 +136,6 @@ set guifont=Monospace:h12
 set t_Co=256
 "autocmd BufRead,BufNewFile * syn match parens /[(){}\[\]]/ | hi parens ctermfg=blue
 colorscheme onedark
-"cobalt2
 "base16-ocean
  
 "高亮显示当前行
@@ -182,14 +181,17 @@ set ai
 "智能缩进
 set si
 
-"设置缩进的空格数为4
+"设置自动缩进:即每行的缩进值与上一行相等；使用 noautoindent 取消设置
 set autoindent
 
-"设置自动缩进:即每行的缩进值与上一行相等；使用 noautoindent 取消设置
+"设置缩进的空格数为4
 set shiftwidth=4
 
 "设置使用 C/C++ 语言的自动缩进方式
 set cindent
+
+"tab=4 space
+set expandtab
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
