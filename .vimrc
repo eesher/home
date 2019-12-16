@@ -121,6 +121,9 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+" close preview top window
+set completeopt-=preview
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 字体和颜色
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -223,9 +226,15 @@ let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8/bin/ctags'
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 
+" open new buffer with go define
+let g:godef_split=0
+
 "winmanager
 let g:winManagerWindowLayout='FileExplorer|TagList'
 nmap wm :WMToggle<cr>
+
+" tagbar
+nmap <F2> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 编码设置
@@ -258,5 +267,6 @@ set fileencoding=utf-8
 "set termencoding=prc
 let &termencoding=&encoding
 
-
-
+"call plug#begin('~/.vim/plugged')
+"Plug 'roxma/nvim-completion-manager'
+"call plug#end()
