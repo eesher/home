@@ -1,6 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 全局配置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "关掉兼容模式
 set nocompatible
  
@@ -231,7 +232,7 @@ let g:godef_split=0
 
 "winmanager
 let g:winManagerWindowLayout='FileExplorer|TagList'
-nmap wm :WMToggle<cr>
+nmap <F3> :WMToggle<cr>
 
 " tagbar
 nmap <F2> :TagbarToggle<CR>
@@ -270,3 +271,6 @@ let &termencoding=&encoding
 "call plug#begin('~/.vim/plugged')
 "Plug 'roxma/nvim-completion-manager'
 "call plug#end()
+
+set number
+let g:go_disable_autoinstall = 0
