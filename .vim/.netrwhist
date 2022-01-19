@@ -1,3 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
-let g:netrw_dirhist_1='/home/e/code/vue-element-admin/src/filters'
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/e/go/src/cam/back/exg/ethdefi/acc'
+let g:netrw_dirhist_2='/home/e/workspace/1token/demo/http'
+let g:netrw_dirhist_1='/home/e/code/recruitment-dev-go-homework-YixuFeng/testing/mycpp'
