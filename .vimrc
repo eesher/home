@@ -4,13 +4,51 @@
 
 "关掉兼容模式
 set nocompatible
+
+"vundle
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+"Plugin 'fatih/vim-go'
+"Plugin 'darrikonn/vim-gofmt'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'wincent/command-t'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+Plugin 'Valloric/YouCompleteMe'
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
  
 "设置历史记录步数
-set history=400
+set history=30
  
 "开启文件类型判断插件
-filetype plugin on
-filetype indent on
+"filetype plugin on
+"filetype indent on
  
 "当文件在外部被修改，自动更新该文件
 set autoread
@@ -23,108 +61,49 @@ nmap <leader>s :w!<cr>
 nmap <leader>w :wq!<cr>
 nmap <leader>q :q!<cr>
 
-"map <C-F9> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-"设置快捷键为win方式的快捷键
-"source $VIMRUNTIME/mswin.vim
-"behave mswin
-
-"set pastetoggle=<F3>
-
 "tag
-set tag=../tags,../TAGS,tags,TAGS
+"set tag=../tags,../TAGS,tags,TAGS
 
 "cscope
-set cscopequickfix=s-,c-,d-,i-,t-,e-
+"set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 "c\h文件切换
 nnoremap <silent> <F12> :A<CR>
 
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-			\ 'default' : '',
-			\ 'vimshell' : $HOME.'/.vimshell_hist',
-			\ 'scheme' : $HOME.'/.gosh_completions'
-			\ }
+"minibuffer
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-	let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" Plugin key-mappings.
-inoremap <expr><C-g>	neocomplete#undo_completion()
-inoremap <expr><C-l>	neocomplete#complete_common_string()
+" YouCompleteMe配置
+"let g:ycm_key_list_select_completion = ['<Tab>']
+"let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
+let g:ycm_min_num_of_chars_for_completion=2 " 从第2个键入字符就开始罗列匹配项
+let g:ycm_cache_omnifunc=0  " 禁止缓存匹配项,每次都重新生成匹配项
+let g:ycm_seed_identifiers_with_syntax=1    " 语法关键字补全
+" 在注释输入中也能补全
+let g:ycm_complete_in_comments = 1
+" 在字符串输入中也能补全
+let g:ycm_complete_in_strings = 1
+"注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_gopls_binary_path = expand('$GOPATH/bin/gopls')
+let g:ycm_gopls_args = ['-remote=auto']
+"autocmd FileType c,cpp let b:ycm_hover = { 'command': 'GetDoc', 'syntax': &syntax }
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return neocomplete#close_popup() . "\<CR>"
-	" For no inserting <CR> key.
-	"return pumvisible() ?
-	neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y> neocomplete#close_popup()
-inoremap <expr><C-e> neocomplete#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+" vim-go
+"只开一个gopls
+"let g:go_gopls_options = ['-remote=auto']
 
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left> neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up> neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down> neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-	let	g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" close preview top window
-set completeopt-=preview
+"autocmd BufWritePre *.go Fmt
+"autocmd FileType go autocmd BufWritePre <buffer> Fmt
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 字体和颜色
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -172,8 +151,12 @@ set fdm=syntax
 "设置（软）制表符宽度为4
 set tabstop=4
 set softtabstop=4
+set expandtab
+"sw=4
+set shiftwidth=4
 autocmd FileType lua setlocal et | setlocal sta | setlocal sw=4
 autocmd FileType proto setlocal et | setlocal sta | setlocal sw=4
+autocmd FileType go setlocal et | setlocal sta | setlocal sw=4
 "set smarttab
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -188,14 +171,12 @@ set si
 "设置自动缩进:即每行的缩进值与上一行相等；使用 noautoindent 取消设置
 set autoindent
 
-"设置缩进的空格数为4
-set shiftwidth=4
 
 "设置使用 C/C++ 语言的自动缩进方式
 set cindent
 
 "tab=4 space
-set expandtab
+"set expandtab
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -223,19 +204,21 @@ set showmatch
 set hlsearch
 
 "taglist
-let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8/bin/ctags'
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
+"let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8/bin/ctags'
+"let Tlist_Show_One_File=1
+"let Tlist_Exit_OnlyWindow=1
 
 " open new buffer with go define
-let g:godef_split=0
+"let g:godef_split=0
+"let g:go_def_mode = 'gopls'
+"let g:go_info_mode='gopls'
 
 "winmanager
-let g:winManagerWindowLayout='FileExplorer|TagList'
-nmap <F3> :WMToggle<cr>
+"let g:winManagerWindowLayout='FileExplorer|TagList'
+"nmap <F3> :WMToggle<cr>
 
 " tagbar
-nmap <F2> :TagbarToggle<CR>
+"nmap <F2> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 编码设置
@@ -250,27 +233,17 @@ set encoding=utf-8
 "Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的
 "字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。
 "因此最好将 Unicode 编码方式放到这个列表的最前面。
-"set fileencodings=Unicode,utf-8,gb2312,gbk,gb18030,latin-1
-"set fencs=utf-8,Unicode,gb2312,gbk,gb18030,latin-1,cp936
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936,latin-1,prc
-"set fileencodings=ucs-bom,utf8,prc
+
 
 "Vim 中当前编辑的文件的字符编码方式，
 "Vim 保存文件时也会将文件保存为这种字符编码方式。
 set fileencoding=utf-8
-"set fileencoding=prc
 
 " termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 
 " 的字符编码方式。这个选项对 GUI 模式的 gVim 无效，
 " 而对 Console 模式的 Vim 而言就是Windows 控制台的代码页 
 " (对于 Windows 而言)，并且通常我们不需要改变它。
 " 下面这句只影响普通模式 (非图形界面) 下的 Vim。
-"set termencoding=prc
 let &termencoding=&encoding
 
-"call plug#begin('~/.vim/plugged')
-"Plug 'roxma/nvim-completion-manager'
-"call plug#end()
-
-set number
-let g:go_disable_autoinstall = 0

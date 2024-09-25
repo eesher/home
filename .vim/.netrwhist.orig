@@ -1,4 +1,10 @@
 let g:netrw_dirhistmax  =10
+<<<<<<< HEAD
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/e/go/src/cam/back/exg/ethdefi/acc'
+let g:netrw_dirhist_2='/home/e/workspace/1token/demo/http'
+let g:netrw_dirhist_1='/home/e/code/recruitment-dev-go-homework-YixuFeng/testing/mycpp'
+=======
 let g:netrw_dirhistcnt =9
 let g:netrw_dirhist_9='/Users/e/go/src/cam/back/exg/defihelperv2/adapterv2/common'
 let g:netrw_dirhist_8='/Users/e/go/src/cam/back/startup'
@@ -10,3 +16,4 @@ let g:netrw_dirhist_3='/Users/e/go/src/cam/back/historytradev2/s3_operate'
 let g:netrw_dirhist_2='/Users/e/go/src/cam/back/historytradev2/play/tyz/start_binance'
 let g:netrw_dirhist_1='/Users/e/go/src/cam/back/exg/binancem/acc'
 let g:netrw_dirhist_0='/Users/e/go/src/cam/back/historytradev2/data_to_s3_v2'
+>>>>>>> 58a6dd9 (vim)
